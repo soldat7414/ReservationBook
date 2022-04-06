@@ -7,10 +7,7 @@ import models.Reservation;
 import services.HotelService;
 import services.ReservationBookService;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,9 +18,13 @@ public class InitController {
     private static final String FILE_TITLE_NAME = "title.dat";
 
     public static void init(){
-        Scanner scanner = new Scanner(System.in);
-        HotelService.init(scanner);
-        ReservationBookService.init();
+        if(isThereSaved()){
+            restore();
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            HotelService.init(scanner);
+            ReservationBookService.init();
+        }
     }
 
     public static void save (){
@@ -82,4 +83,18 @@ public class InitController {
             System.out.println(ex.getMessage());
         }
     }
+
+    public static void deleteSaves () {
+        new File(FILE_HOTEL_NAME).delete();
+        new File(FILE_BOOK_NAME).delete();
+        new File(FILE_TITLE_NAME).delete();
+        System.out.println("Сохраненные данные об отеле удалены.");
+    }
+
+    private static boolean isThereSaved (){
+        boolean isHere = false;
+        if(new File(FILE_HOTEL_NAME).exists() && new File(FILE_BOOK_NAME).exists() && new File(FILE_TITLE_NAME).exists()) return true;
+        return false;
+    }
+
 }
