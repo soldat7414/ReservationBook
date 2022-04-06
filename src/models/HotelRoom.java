@@ -16,6 +16,11 @@ public class HotelRoom {
         this.price = price;
     }
 
+    @Override
+    public String toString(){
+        return "Комната №" + number +"\n цена за сутки, грн.: " + price;
+    }
+
     public int getNumber() {
         return number;
     }

@@ -1,7 +1,7 @@
 package views;
 
 import data.Hotel;
-import services.Inputs;
+import services.InputService;
 
 import java.util.Scanner;
 
@@ -13,13 +13,13 @@ public class InitializeView {
 
     public static void initHotel(Scanner scanner){
         message = "Введите название отеля: ";
-        Hotel.setTitle(Inputs.txt(scanner, message));
+        Hotel.setTitle(InputService.txt(scanner, message));
 
         message = "Введите количество комнат: ";
-        numberOfRooms = Inputs.inputInt(scanner, message);
+        numberOfRooms = InputService.inputInt(scanner, message);
 
         message = "Введите цену аренды за сутки: ";
-        price = Inputs.inputDouble(scanner, message);
+        price = InputService.inputDouble(scanner, message);
     }
 
     public static int getNumberOfRooms() {

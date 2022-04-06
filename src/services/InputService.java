@@ -6,11 +6,11 @@ import exceptions.NotNumberException;
 
 import java.util.Scanner;
 
-public class Inputs {
+public class InputService {
 
     //input validation
     private static Scanner isEmpty (Scanner scanner) throws EmptyInputException {
-        if(!scanner.hasNext()) throw new EmptyInputException("Вы не ввели значение!");
+        if(!scanner.hasNextLine()) throw new EmptyInputException("Вы не ввели значение!");
         return scanner;
     }
 

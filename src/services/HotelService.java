@@ -23,6 +23,7 @@ public class HotelService {
         Map<Integer, HotelRoom> hotel = new HashMap<>();
         for(int i = 1; i <= numberOfRooms; i++){
             HotelRoom room = new HotelRoom(i, pricePerDay);
+            hotel.put(i, room);
         }
         Hotel.setHotel(hotel);
     }
