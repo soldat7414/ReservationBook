@@ -1,26 +1,33 @@
 package services;
 
+import data.Hotel;
 import exceptions.EmptyInputException;
+import models.HotelRoom;
 import models.Reservation;
+import views.InitializeView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class HotelService {
 
     String title;
-    private int numberOfRooms;
-    private double pricePerDay;
+    private static int numberOfRooms;
+    private static double pricePerDay;
 
     public static void init (Scanner scanner){
 
+        InitializeView.initHotel(scanner);
+        numberOfRooms = InitializeView.getNumberOfRooms();
+        pricePerDay = InitializeView.getPrice();
+
+        Map<Integer, HotelRoom> hotel = new HashMap<>();
+        for(int i = 1; i <= numberOfRooms; i++){
+            HotelRoom room = new HotelRoom(i, pricePerDay);
+        }
+        Hotel.setHotel(hotel);
     }
 
-    private static Scanner isEmpty (Scanner scanner) throws EmptyInputException{
-       if(!scanner.hasNext()) throw new EmptyInputException("Вы не ввели значение!");
-       return scanner;
-    }
+
 
 
 

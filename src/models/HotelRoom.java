@@ -1,5 +1,7 @@
 package models;
 
+import data.Hotel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,11 @@ public class HotelRoom {
     private int number;
     private double price;
     List<Reservation> reserved = new ArrayList<>();
+
+    public HotelRoom (int number, double price){
+        this.number = number;
+        this.price = price;
+    }
 
     public int getNumber() {
         return number;

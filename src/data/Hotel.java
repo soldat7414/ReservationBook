@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Hotel {
     private static String title;
-    static Map<Integer, HotelRoom> hotel = new HashMap<>();
+    static Map<Integer, HotelRoom> hotel = null;
 
     public static String getTitle() {
         return title;
