@@ -10,16 +10,13 @@ import java.util.Set;
 
 public class ReservationBook {
 
-    private static Map<Integer, List<Reservation>> reservationBook = new HashMap<>();
+    private static Map<Integer, List<Reservation>> reservationBook;
 
-
-    public static void initial (){
-
-        Set<Map.Entry<Integer, HotelRoom>> rooms = Hotel.getHotel().entrySet();
-        for(Map.Entry<Integer, HotelRoom> me : rooms){
-            reservationBook.put(me.getKey(), me.getValue().getReserved());
-        }
+    public static Map<Integer, List<Reservation>> getReservationBook() {
+        return reservationBook;
     }
 
-
+    public static void setReservationBook(Map<Integer, List<Reservation>> reservationBook) {
+        ReservationBook.reservationBook = reservationBook;
+    }
 }
