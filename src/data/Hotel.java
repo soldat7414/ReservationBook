@@ -1,11 +1,13 @@
 package data;
 
 import models.HotelRoom;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class Hotel {
+public class Hotel implements Serializable {
     private static String title;
     static Map<Integer, HotelRoom> hotel = null;
 

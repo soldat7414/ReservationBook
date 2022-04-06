@@ -2,10 +2,11 @@ package models;
 
 import data.Hotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelRoom {
+public class HotelRoom implements Serializable {
 
     private int number;
     private double price;
