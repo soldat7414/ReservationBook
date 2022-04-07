@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class Hotel implements Serializable {
     private static String title;
+    private static int quantityOfRooms;
     static Map<Integer, HotelRoom> hotel = null;
 
     public static String getTitle() {
@@ -20,10 +21,19 @@ public class Hotel implements Serializable {
     }
 
     public static Map<Integer, HotelRoom> getHotel() {
+
         return hotel;
     }
 
     public static void setHotel(Map<Integer, HotelRoom> hotel) {
         Hotel.hotel = hotel;
+    }
+
+    public static int getQuantityOfRooms() {
+        return quantityOfRooms;
+    }
+
+    public static void setNumberOfRooms(int numberOfRooms) {
+        Hotel.quantityOfRooms = numberOfRooms;
     }
 }

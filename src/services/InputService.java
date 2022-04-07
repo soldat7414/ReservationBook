@@ -1,12 +1,19 @@
 package services;
 
-import exceptions.EmptyInputException;
-import exceptions.NegativeValueException;
-import exceptions.NotNumberException;
+import data.Hotel;
+import exceptions.*;
+import models.FromTo;
+import models.Reservation;
+import tools.Format;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
 
 public class InputService {
+    private static List<FromTo> reserved;
 
     //input validation
     private static Scanner isEmpty (Scanner scanner) throws EmptyInputException {
@@ -34,12 +41,37 @@ public class InputService {
         return value;
     }
 
+    private static int inRangeOfRooms (int value) throws OutOfQuantityRoomException {
+        if (value > Hotel.getQuantityOfRooms()) throw new OutOfQuantityRoomException("Такого номера у нас нет!");
+        return value;
+    }
+
+    private static FromTo fromInAvailablePeriod (Date date, List<Reservation> reserved) throws ReservedPeriodException, PastDataException {
+        long d = date.getTime();
+        if(d < new Date().getTime()) throw new PastDataException("Мы не можем забронировать номер задним числом!");
+        for (Reservation ft : reserved){
+            if(ft.getFrom().getTime() <= d && ft.getTo().getTime() >= d) throw new ReservedPeriodException(
+                    "Дата попадает в зарезервированный период: ", new FromTo(ft.getFrom(), ft.getTo()));
+        }
+
+        for (int i = 0; i < reserved.size(); i++){
+            if(d < reserved.get(i).getFrom().getTime()) return new FromTo(date, reserved.get(i).getFrom());
+        }
+        return new FromTo(date, new Date(31/11/2022));
+    }
+
+    private static FromTo sameAvailablePeriod (FromTo ft, Date range) throws ReservedPeriodException, PastDataException {
+       if(ft.getFrom().getTime() > ft.getTo().getTime()) throw new PastDataException("Дата выезда должна быть позже даты въезда!");
+       if(range.getTime() < ft.getTo().getTime()) throw new ReservedPeriodException("Дата выезда должна быть до ", new FromTo(ft.getFrom(),range));
+       return ft;
+    }
+
 
 
 
 
     //input data
-    public static String txt (Scanner scanner, String message){
+    public static String txt (Scanner scanner, String message) {
         String txt = null;
         do{
             System.out.print(message);
@@ -52,7 +84,7 @@ public class InputService {
         return txt;
     }
 
-    public static int inputInt (Scanner scanner, String message){
+    public static int inputInt (Scanner scanner, String message) {
         int input = -1;
 
         do{
@@ -70,7 +102,7 @@ public class InputService {
         return input;
     }
 
-    public static double inputDouble (Scanner scanner, String message){
+    public static double inputDouble (Scanner scanner, String message) {
         double input = -1;
         do{
             System.out.print(message);
@@ -86,6 +118,41 @@ public class InputService {
         }while (input<0);
         return input;
     }
+
+    public static int getNumberOfRoom (Scanner scanner, String message) {
+        int value = -1;
+        do {
+            System.out.println(message);
+            try{
+                value = inRangeOfRooms(inputInt(scanner, ""));
+            } catch (OutOfQuantityRoomException ex){
+                System.out.println(ex.getMessage());
+            }
+        }while (value<0);
+        return value;
+    }
+
+    public static FromTo getArriveDate (Scanner scanner, String message, List<Reservation> reserved) {
+        //ft.from - input date
+        //ft.to - available period
+        FromTo ft = null;
+        do{
+            System.out.println(message);
+            try{
+                ft = fromInAvailablePeriod(Format.format(scanner.nextLine()),reserved);
+            } catch (ParseException pe) {
+                System.out.println("Не верный формат даты! Необходимый формат: дд-мм-ггг");
+            } catch (PastDataException pde){
+                System.out.println(pde.getMessage());
+            } catch (ReservedPeriodException rpe){
+                System.out.println(rpe.getMessage() + rpe.getReservedPeriod().toString());
+            }
+        } while (ft == null);
+        return ft;
+    }
+
+
+
 
 
 }

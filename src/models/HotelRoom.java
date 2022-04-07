@@ -10,7 +10,7 @@ public class HotelRoom implements Serializable {
 
     private int number;
     private double price;
-    List<Reservation> reserved = new ArrayList<>();
+    private List<Reservation> reserved = new ArrayList<>();
 
     public HotelRoom (int number, double price){
         this.number = number;
