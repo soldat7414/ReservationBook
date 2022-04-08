@@ -103,6 +103,28 @@ public class InputService {
         return input;
     }
 
+    public static int inputIntInRange (Scanner scanner, String message, int range) {
+        int input = -1;
+
+        do{
+            System.out.print(message);
+            try{
+                input = isPositive(isInt(isEmpty(scanner)));
+                if(input > range){
+                    input = -1;
+                    throw new OutOfQuantityRoomException("Записи с таким номером нет!");
+                }
+            } catch (EmptyInputException | OutOfQuantityRoomException emptyInputException){
+                System.out.println(emptyInputException.getMessage());
+            } catch (NotNumberException notNumberException){
+                System.out.println(notNumberException.getInput() + notNumberException.getMessage());
+            } catch (NegativeValueException negativeValueException){
+                System.out.println(negativeValueException.getValue() + negativeValueException.getMessage());
+            }
+        }while (input<0);
+        return input;
+    }
+
     public static double inputDouble (Scanner scanner, String message) {
         double input = -1;
         do{

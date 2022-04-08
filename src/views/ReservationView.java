@@ -9,6 +9,7 @@ import services.ReservationService;
 import tools.Format;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Scanner;
 
 public class ReservationView {
@@ -33,7 +34,6 @@ public class ReservationView {
         message = ReservationService.availableForReserve(number);
         System.out.println(message);
         message = "Выберите дату въезда в доступном промежутке: ";
-        //System.out.print(message);
         FromTo fromRange = InputService.getArriveDate(scanner, message, Hotel.getHotel().get(number).getReserved());
         message = "Выберите дату выезда до " + Format.parseDate(fromRange.getTo());
         FromTo fromTo = InputService.getOutDate(scanner,message, fromRange);
@@ -48,13 +48,37 @@ public class ReservationView {
         System.out.println(message);
         System.out.println(reservation.toString());
         System.out.println("Стоимость прибывания составит: " + reservation.getRoom().getPrice()*reservation.duration());
-        message = "Чтоб сохранить резерв введите букву s: ";
         System.out.print(message);
         if(InputService.txt(scanner, message).equals("s")) ReservationService.save(reservation);
+    }
 
-
+    public static void deleteReservation(Scanner scanner){
+        String message;
+        message = "Выберите номер комнаты, где Вы хотели бы удалить запись о резервации: ";
+        int number = InputService.getNumberOfRoom(scanner, message);
+        message = "В комнате №" + number+ " следующие записи о резервации:";
+        System.out.println(message);
+        List<Reservation> reservations = Hotel.getHotel().get(number).getReserved();
+        if(reservations.size() == 0) {
+            System.out.println("В данном номере нет ни одний записи о резервации.");
+            return;
+        }
+        int count = 1;
+        for (Reservation reserv : reservations){
+            System.out.println(count + " " + reserv);
+            count++;
+        }
+        message = "Выберите номер записи о резервации, который хотите удалить: ";
+        int delNum = InputService.inputIntInRange(scanner, message, reservations.size());
+        message = "Вы собираетесь удалить запись:";
+        System.out.println(message);
+        System.out.println(reservations.get(delNum-1));
+        message = "Чтоб удалить запись введите 'd': ";
+        if(InputService.txt(scanner, message).equals("s")) ReservationService.delete(reservations.get(delNum-1));
 
     }
+
+
 
 
 

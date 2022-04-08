@@ -25,6 +25,7 @@ public class App {
                 System.out.println(reservation);
             }
         }
+        InitController.deleteSaves();
         InitController.save();
 
 

@@ -98,10 +98,6 @@ public class InitController {
         return false;
     }
 
-    public static void addReservation(){
-        Scanner scanner = new Scanner(System.in);
-        ReservationView.addingReservation(scanner);
-        scanner.close();
-    }
+
 
 }

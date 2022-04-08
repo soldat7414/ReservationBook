@@ -72,4 +72,10 @@ public class ReservationService {
         ReservationBook.getReservationBook().get(room).add(reservation);
         Hotel.getHotel().get(room).getReserved().add(reservation);
     }
+
+    public static void delete (Reservation reservation){
+        int room = reservation.getRoom().getNumber();
+        ReservationBook.getReservationBook().get(room).remove(reservation);
+        Hotel.getHotel().get(room).getReserved().remove(reservation);
+    }
 }
