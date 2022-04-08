@@ -9,6 +9,7 @@ import tools.Format;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.ForkJoinPool;
 
@@ -76,10 +77,11 @@ public class InputService {
         do{
             System.out.print(message);
             try{
-                txt = isEmpty(scanner).nextLine();
-                if(txt.length()==0) txt = null;
-            } catch (EmptyInputException ex){
-                System.out.println(ex.getMessage());
+                if(scanner.hasNextLine()){
+                txt = scanner.nextLine();
+                if(txt.length()==0) txt = null;}
+            } catch (NoSuchElementException ex){
+                System.out.println("txt" + ex.getMessage());
             }
         } while (txt==null);
         return txt;
@@ -93,7 +95,7 @@ public class InputService {
             try{
                 input = isPositive(isInt(isEmpty(scanner)));
             } catch (EmptyInputException emptyInputException){
-                System.out.println(emptyInputException.getMessage());
+                System.out.println("int"+emptyInputException.getMessage());
             } catch (NotNumberException notNumberException){
                 System.out.println(notNumberException.getInput() + notNumberException.getMessage());
             } catch (NegativeValueException negativeValueException){
@@ -114,12 +116,14 @@ public class InputService {
                     input = -1;
                     throw new OutOfQuantityRoomException("Записи с таким номером нет!");
                 }
-            } catch (EmptyInputException | OutOfQuantityRoomException emptyInputException){
-                System.out.println(emptyInputException.getMessage());
+            } catch (EmptyInputException emptyInputException){
+                System.out.println("ii" + emptyInputException.getMessage());
             } catch (NotNumberException notNumberException){
                 System.out.println(notNumberException.getInput() + notNumberException.getMessage());
             } catch (NegativeValueException negativeValueException){
                 System.out.println(negativeValueException.getValue() + negativeValueException.getMessage());
+            } catch ( OutOfQuantityRoomException oo){
+                System.out.println(oo.getMessage());
             }
         }while (input<0);
         return input;
@@ -132,7 +136,7 @@ public class InputService {
             try{
                 input = isPositive(isDouble(isEmpty(scanner)));
             } catch (EmptyInputException emptyInputException){
-                System.out.println(emptyInputException.getMessage());
+                System.out.println("do"+emptyInputException.getMessage());
             } catch (NotNumberException notNumberException){
                 System.out.println(notNumberException.getInput() + notNumberException.getMessage());
             } catch (NegativeValueException negativeValueException){

@@ -1,6 +1,7 @@
 package application;
 
 import controllers.InitController;
+import controllers.ReservationController;
 import data.Hotel;
 import models.HotelRoom;
 import models.Reservation;
@@ -14,8 +15,11 @@ public class App {
         //InitController.deleteSaves();
         InitController.init();
         if(!InitController.isThereSaved()){
-        InitController.save();}
-        InitController.addReservation();
+        InitController.save();
+        }
+        ReservationController.deleteReservation();
+        ReservationController.addReservation();
+
 
         System.out.println("Отель " + "\""+ Hotel.getTitle()+"\"");
         Set<Map.Entry<Integer, HotelRoom>> rooms = Hotel.getHotel().entrySet();

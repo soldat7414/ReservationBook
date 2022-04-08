@@ -25,6 +25,7 @@ public class InitController {
             Scanner scanner = new Scanner(System.in);
             HotelService.init(scanner);
             ReservationBookService.init();
+            scanner.close();
         }
     }
 

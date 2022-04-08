@@ -48,8 +48,11 @@ public class ReservationView {
         System.out.println(message);
         System.out.println(reservation.toString());
         System.out.println("Стоимость прибывания составит: " + reservation.getRoom().getPrice()*reservation.duration());
-        System.out.print(message);
-        if(InputService.txt(scanner, message).equals("s")) ReservationService.save(reservation);
+        //System.out.print(message);
+        message = "Чтоб сохранить запись введите s: ";
+        //System.out.print(message);
+        String s = InputService.txt(scanner, message);
+        if(s.equals("s")) ReservationService.save(reservation);
     }
 
     public static void deleteReservation(Scanner scanner){
@@ -73,8 +76,9 @@ public class ReservationView {
         message = "Вы собираетесь удалить запись:";
         System.out.println(message);
         System.out.println(reservations.get(delNum-1));
-        message = "Чтоб удалить запись введите 'd': ";
-        if(InputService.txt(scanner, message).equals("s")) ReservationService.delete(reservations.get(delNum-1));
+        message = "Чтоб удалить запись введите d: ";
+        String s = InputService.txt(scanner, message);
+        if(s.equals("d")) ReservationService.delete(reservations.get(delNum-1));
 
     }
 
