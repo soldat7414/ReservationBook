@@ -18,14 +18,12 @@ public class InitController {
     private static final String FILE_BOOK_NAME = "reservationBook.dat";
     private static final String FILE_TITLE_NAME = "title.dat";
 
-    public static void init(){
+    public static void init(Scanner scanner){
         if(isThereSaved()){
             restore();
         } else {
-            Scanner scanner = new Scanner(System.in);
             HotelService.init(scanner);
             ReservationBookService.init();
-            scanner.close();
         }
     }
 

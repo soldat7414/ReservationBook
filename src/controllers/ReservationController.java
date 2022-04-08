@@ -5,16 +5,12 @@ import views.ReservationView;
 import java.util.Scanner;
 
 public class ReservationController {
-    static Scanner scanner = new Scanner(System.in);
-    public static void addReservation(){
-        //Scanner scanner = new Scanner(System.in);
+
+    public static void addReservation(Scanner scanner){
         ReservationView.addingReservation(scanner);
-//        scanner.close();
     }
-    public static void deleteReservation(){
-//        Scanner scanner = new Scanner(System.in);
+    public static void deleteReservation(Scanner scanner){
         ReservationView.deleteReservation(scanner);
-//        scanner.close();
     }
 
 }

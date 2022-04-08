@@ -111,11 +111,12 @@ public class InputService {
         do{
             System.out.print(message);
             try{
+                if(scanner.hasNextLine()){
                 input = isPositive(isInt(isEmpty(scanner)));
                 if(input > range){
                     input = -1;
                     throw new OutOfQuantityRoomException("Записи с таким номером нет!");
-                }
+                }}
             } catch (EmptyInputException emptyInputException){
                 System.out.println("ii" + emptyInputException.getMessage());
             } catch (NotNumberException notNumberException){
