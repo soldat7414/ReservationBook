@@ -1,7 +1,10 @@
 package application;
 
+import controllers.MainController;
+
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("");
+        MainController.runApp();
     }
 }
