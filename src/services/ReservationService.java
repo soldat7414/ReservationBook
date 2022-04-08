@@ -1,9 +1,11 @@
 package services;
 
 import data.Hotel;
+import data.ReservationBook;
 import models.FromTo;
 import models.HotelRoom;
 import models.Reservation;
+import tools.Format;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
@@ -30,17 +32,22 @@ public class ReservationService {
     public static List<FromTo> availablePeriods (int number){
         HotelRoom room = Hotel.getHotel().get(number);
         Date now = new Date();
-        Date andOfYear = new Date(31/12/2022);
+        Date andOfYear = Format.parseDate("31-12-2022");
         List<FromTo> available = new ArrayList<>();
         List<Reservation> reserv = room.getReserved();
         if(reserv.isEmpty()) {
-            new FromTo(now, andOfYear);
+            available.add(new FromTo(now, andOfYear));
+            return available;
+        }else if(reserv.size() == 1){
+            available.add(new FromTo(now, reserv.get(0).getFrom()));
+            available.add(new FromTo(reserv.get(0).getTo(), andOfYear));
+            return available;
         }
-        available.add(new FromTo(now, reserv.get(0).getFrom()));
-        for (int i = 0; i < reserv.size(); i++){
+        if(now.getTime() < reserv.get(0).getFrom().getTime())available.add(new FromTo(now, reserv.get(0).getFrom()));
+        for (int i = 0; i < reserv.size()-1; i++){
             Date from = reserv.get(i).getTo();
             Date to;
-            if(i == reserv.size()-1) {
+            if(i <= reserv.size()-2) {
                 to = andOfYear;
             }else{
                 to = reserv.get(i+1).getFrom();
@@ -50,7 +57,7 @@ public class ReservationService {
         return available;
     }
 
-    public static String AvailableForReserve(int number){
+    public static String availableForReserve(int number){
        List<FromTo> list = availablePeriods(number);
        String available = "";
        for (FromTo ft : list){
@@ -58,5 +65,11 @@ public class ReservationService {
        }
        return available;
 
+    }
+
+    public static void save (Reservation reservation){
+        int room = reservation.getRoom().getNumber();
+        ReservationBook.getReservationBook().get(room).add(reservation);
+        Hotel.getHotel().get(room).getReserved().add(reservation);
     }
 }

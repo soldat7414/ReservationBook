@@ -1,6 +1,7 @@
 package models;
 
-import javax.xml.crypto.Data;
+import tools.Format;
+
 import java.util.Date;
 
 public class FromTo {
@@ -29,6 +30,6 @@ public class FromTo {
 
     @Override
     public String toString() {
-        return "c" + from + " до " + to +"\n";
+        return "c" + Format.parseDate(from) + " до " + Format.parseDate(to) +"\n";
     }
 }

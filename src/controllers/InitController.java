@@ -6,6 +6,7 @@ import models.HotelRoom;
 import models.Reservation;
 import services.HotelService;
 import services.ReservationBookService;
+import views.ReservationView;
 
 import java.io.*;
 import java.util.List;
@@ -91,10 +92,16 @@ public class InitController {
         System.out.println("Сохраненные данные об отеле удалены.");
     }
 
-    private static boolean isThereSaved (){
+    public static boolean isThereSaved (){
         boolean isHere = false;
         if(new File(FILE_HOTEL_NAME).exists() && new File(FILE_BOOK_NAME).exists() && new File(FILE_TITLE_NAME).exists()) return true;
         return false;
+    }
+
+    public static void addReservation(){
+        Scanner scanner = new Scanner(System.in);
+        ReservationView.addingReservation(scanner);
+        scanner.close();
     }
 
 }

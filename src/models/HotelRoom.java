@@ -19,7 +19,7 @@ public class HotelRoom implements Serializable {
 
     @Override
     public String toString(){
-        return "Комната №" + number +"\n цена за сутки, грн.: " + price;
+        return "Комната №" + number +"\nцена за сутки, грн.: " + price;
     }
 
     public int getNumber() {

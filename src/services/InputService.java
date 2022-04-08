@@ -42,7 +42,7 @@ public class InputService {
     }
 
     private static int inRangeOfRooms (int value) throws OutOfQuantityRoomException {
-        if (value > Hotel.getQuantityOfRooms()) throw new OutOfQuantityRoomException("Такого номера у нас нет!");
+        if (value > Hotel.getHotel().size()) throw new OutOfQuantityRoomException("Такого номера у нас нет!");
         return value;
     }
 
@@ -57,10 +57,10 @@ public class InputService {
         for (int i = 0; i < reserved.size(); i++){
             if(d < reserved.get(i).getFrom().getTime()) return new FromTo(date, reserved.get(i).getFrom());
         }
-        return new FromTo(date, new Date(31/11/2022));
+        return new FromTo(date, Format.parseDate("31-12-2022"));
     }
 
-    private static FromTo sameAvailablePeriod (FromTo ft, Date range) throws ReservedPeriodException, PastDataException {
+    private static FromTo fromToAvailable (FromTo ft, Date range) throws ReservedPeriodException, PastDataException {
        if(ft.getFrom().getTime() > ft.getTo().getTime()) throw new PastDataException("Дата выезда должна быть позже даты въезда!");
        if(range.getTime() < ft.getTo().getTime()) throw new ReservedPeriodException("Дата выезда должна быть до ", new FromTo(ft.getFrom(),range));
        return ft;
@@ -77,6 +77,7 @@ public class InputService {
             System.out.print(message);
             try{
                 txt = isEmpty(scanner).nextLine();
+                if(txt.length()==0) txt = null;
             } catch (EmptyInputException ex){
                 System.out.println(ex.getMessage());
             }
@@ -133,19 +134,39 @@ public class InputService {
     }
 
     public static FromTo getArriveDate (Scanner scanner, String message, List<Reservation> reserved) {
-        //ft.from - input date
+        //ft.from - arrive date
         //ft.to - available period
         FromTo ft = null;
+        System.out.println(message);
         do{
-            System.out.println(message);
             try{
-                ft = fromInAvailablePeriod(Format.format(scanner.nextLine()),reserved);
+                    Date from = Format.format(txt(scanner, ""));
+                    ft = fromInAvailablePeriod(from, reserved);
             } catch (ParseException pe) {
-                System.out.println("Не верный формат даты! Необходимый формат: дд-мм-ггг");
+                System.out.println("Не верный формат даты! Необходимый формат: дд-мм-гггг");
             } catch (PastDataException pde){
                 System.out.println(pde.getMessage());
             } catch (ReservedPeriodException rpe){
                 System.out.println(rpe.getMessage() + rpe.getReservedPeriod().toString());
+            }
+        } while (ft == null);
+        return ft;
+    }
+
+    public static FromTo getOutDate (Scanner scanner, String message, FromTo fromRange){
+        //ft.from - arrive date
+        //ft.to - out date
+        FromTo ft = null;
+        do{
+            System.out.println(message);
+            try{
+                ft = fromToAvailable(new FromTo(fromRange.getFrom(),Format.format(scanner.nextLine())),fromRange.getTo());
+            } catch (ParseException pe) {
+                System.out.println("Не верный формат даты! Необходимый формат: дд-мм-ггг");
+            } catch (PastDataException pde){
+                System.out.println(pde.getMessage());
+            } catch (ReservedPeriodException rpe) {
+                System.out.println(rpe.getMessage());
             }
         } while (ft == null);
         return ft;
