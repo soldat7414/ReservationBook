@@ -1,13 +1,11 @@
 package services;
 
 import data.Hotel;
-import data.ReservationBook;
 import models.FromTo;
 import models.HotelRoom;
 import models.Reservation;
 import tools.Format;
 
-import javax.xml.crypto.Data;
 import java.util.*;
 
 public class ReservationService {
@@ -57,13 +55,13 @@ public class ReservationService {
 
     public static void save(Reservation reservation) {
         int room = reservation.getRoom().getNumber();
-        ReservationBook.getReservationBook().get(room).add(reservation);
+//        ReservationBook.getReservationBook().get(room).add(reservation);
         Hotel.getHotel().get(room).getReserved().add(reservation);
     }
 
     public static void delete(Reservation reservation) {
         int room = reservation.getRoom().getNumber();
-        ReservationBook.getReservationBook().get(room).remove(reservation);
+//        ReservationBook.getReservationBook().get(room).remove(reservation);
         Hotel.getHotel().get(room).getReserved().remove(reservation);
     }
 }
