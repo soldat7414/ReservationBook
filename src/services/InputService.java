@@ -49,7 +49,7 @@ public class InputService {
 
     private static FromTo fromInAvailablePeriod (Date date, List<Reservation> reserved) throws ReservedPeriodException, PastDataException {
         long d = date.getTime();
-        if(d < new Date().getTime()) throw new PastDataException("Мы не можем забронировать номер задним числом!");
+        if(new Date().after(date)) throw new PastDataException("Мы не можем забронировать номер задним числом!");
         for (Reservation ft : reserved){
             if(ft.getFrom().getTime() <= d && ft.getTo().getTime() >= d) throw new ReservedPeriodException(
                     "Дата попадает в зарезервированный период: ", new FromTo(ft.getFrom(), ft.getTo()));
@@ -74,8 +74,8 @@ public class InputService {
     //input data
     public static String txt (Scanner scanner, String message) {
         String txt = null;
+        System.out.print(message);
         do{
-            System.out.print(message);
             try{
                 if(scanner.hasNextLine()){
                 txt = scanner.nextLine();

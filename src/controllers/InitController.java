@@ -28,10 +28,14 @@ public class InitController {
     }
 
     public static void save (){
+        boolean hotel = false;
+        boolean book = false;
+        boolean title = false;
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_HOTEL_NAME)))
         {
             oos.writeObject(Hotel.getHotel());
-            System.out.println("File has been written");
+            //System.out.println("File has been written");
+            hotel = true;
         }
         catch(Exception ex){
 
@@ -40,7 +44,8 @@ public class InitController {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_BOOK_NAME)))
         {
             oos.writeObject(ReservationBook.getReservationBook());
-            System.out.println("File has been written");
+            //System.out.println("File has been written");
+            book = true;
         }
         catch(Exception ex){
 
@@ -49,19 +54,25 @@ public class InitController {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_TITLE_NAME)))
         {
             oos.writeObject(Hotel.getTitle());
-            System.out.println("File has been written");
+            title = true;
+            //System.out.println("File has been written");
         }
         catch(Exception ex){
 
             System.out.println(ex.getMessage());
         }
+        if(hotel && book && title) System.out.println("Сохранено.");
     }
 
     public static void restore (){
+        boolean hotel = false;
+        boolean book = false;
+        boolean title = false;
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_HOTEL_NAME)))
         {
             Hotel.setHotel((Map<Integer, HotelRoom>)ois.readObject());
-            System.out.println("Hotel download");
+            //System.out.println("Hotel download");
+            hotel = true;
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -69,7 +80,7 @@ public class InitController {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_BOOK_NAME)))
         {
             ReservationBook.setReservationBook((Map<Integer, List<Reservation>>)ois.readObject());
-            System.out.println("Reservation book download");
+            book = true;
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -77,11 +88,13 @@ public class InitController {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_TITLE_NAME)))
         {
             Hotel.setTitle((String)ois.readObject());
-            System.out.println("Hotel title download");
+           // System.out.println("Hotel title download");
+            title = true;
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
+        if(hotel && book && title) System.out.println("Загружен отель \"");
     }
 
     public static void deleteSaves () {

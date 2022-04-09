@@ -44,6 +44,7 @@ public class HotelService {
             info += "Комната №" + me.getKey() + ", стоимость за сутки - " + me.getValue().getPrice() + " грн. \n";
             if(me.getValue().getReserved().isEmpty()) {
                 info += "В этом номере еще нет записей о резервации.\n";
+
             }else{
                 info += "Сейчас зарезервировано:\n";
                 int count = 1;

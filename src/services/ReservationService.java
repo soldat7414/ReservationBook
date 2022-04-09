@@ -13,18 +13,6 @@ import java.util.*;
 public class ReservationService {
     private static String title = Hotel.getTitle();
 
-    public static void addReservation(Scanner scanner) {
-
-        Reservation reservation = new Reservation();
-
-        String message = "У нас в отеле \"" + title + "\"" + " " + Hotel.getQuantityOfRooms();
-        System.out.println(message);
-        message = "Выберите один из них дял бронирования!";
-        System.out.println(message);
-
-
-    }
-
     public static List<FromTo> availablePeriods(int number) {
         HotelRoom room = Hotel.getHotel().get(number);
         Date now = new Date();
@@ -41,10 +29,10 @@ public class ReservationService {
         } else {
             if (now.getTime() < reserv.get(0).getFrom().getTime())
                 available.add(new FromTo(now, reserv.get(0).getFrom()));
-            for (int i = 0; i < reserv.size() - 1; i++) {
+            for (int i = 0; i < reserv.size(); i++) {
                 Date from = reserv.get(i).getTo();
                 Date to;
-                if (i >= reserv.size() - 2) {
+                if (i == reserv.size() - 1) {
                     to = andOfYear;
                 } else {
                     to = reserv.get(i + 1).getFrom();
@@ -59,7 +47,9 @@ public class ReservationService {
         List<FromTo> list = availablePeriods(number);
         String available = "";
         for (FromTo ft : list) {
-            available += ft.toString();
+            if (ft.duration() > 1) {
+                available += ft.toString();
+            }
         }
         return available;
 

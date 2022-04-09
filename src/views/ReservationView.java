@@ -47,7 +47,7 @@ public class ReservationView {
         message = "Проверьте, пожалуйста, данные резерва:";
         System.out.println(message);
         System.out.println(reservation.toString());
-        System.out.println("Стоимость прибывания составит: " + reservation.getRoom().getPrice()*reservation.duration());
+        System.out.println("Стоимость прибывания составит: " + Format.roundValue(reservation.getRoom().getPrice()*reservation.duration()));
         //System.out.print(message);
         message = "Чтоб сохранить запись введите s: ";
         //System.out.print(message);
