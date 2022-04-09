@@ -5,21 +5,21 @@ import models.HotelRoom;
 import models.Reservation;
 import tools.Format;
 import views.InitializeView;
-
 import java.util.*;
 
-public class HotelService {
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
-    String title;
-    private static int quantityOfRooms;
-    private static double pricePerDay;
+public class HotelService {
 
 
     public static void init (Scanner scanner) {
 
         InitializeView.initHotel(scanner);
-        quantityOfRooms = InitializeView.getQuantityOfRooms();
-        pricePerDay = InitializeView.getPrice();
+        int quantityOfRooms = InitializeView.getQuantityOfRooms();
+        double pricePerDay = InitializeView.getPrice();
         Hotel.setNumberOfRooms(quantityOfRooms);
 
         Map<Integer, HotelRoom> hotel = new HashMap<>();
@@ -27,7 +27,6 @@ public class HotelService {
             HotelRoom room = new HotelRoom(i, pricePerDay);
             hotel.put(i, room);
         }
-
         Hotel.setHotel(hotel);
     }
 
@@ -44,7 +43,6 @@ public class HotelService {
             info += "Комната №" + me.getKey() + ", стоимость за сутки - " + me.getValue().getPrice() + " грн. \n";
             if(me.getValue().getReserved().isEmpty()) {
                 info += "В этом номере еще нет записей о резервации.\n";
-
             }else{
                 info += "Сейчас зарезервировано:\n";
                 int count = 1;
@@ -59,5 +57,4 @@ public class HotelService {
         }
         return info;
     }
-
 }

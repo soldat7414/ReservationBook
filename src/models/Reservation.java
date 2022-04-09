@@ -1,10 +1,14 @@
 package models;
 
 import tools.Format;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class Reservation implements Serializable {
     String name;

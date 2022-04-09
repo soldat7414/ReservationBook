@@ -7,10 +7,14 @@ import services.HotelService;
 import services.InputService;
 import services.ReservationService;
 import tools.Format;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class ReservationView {
 

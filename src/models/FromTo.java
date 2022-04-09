@@ -5,6 +5,11 @@ import tools.Format;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
+
 public class FromTo {
     Date from;
     Date to;

@@ -3,8 +3,12 @@ package views;
 import controllers.InitController;
 import controllers.ReservationController;
 import services.InputService;
-
 import java.util.Scanner;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class MainView {
     public static void mainView(Scanner scanner){
@@ -15,7 +19,6 @@ public class MainView {
         if(InitController.isThereSaved()){
             message = "Книга резервирования уже была создана.\n" +
                     "Если хотите ее открыть введите 'o', Если хотите создать новую книгу введите 'new': ";
-//            System.out.print(message);
             int mark = -1;
             do {
                 String answer = InputService.txt(scanner, message);
@@ -45,7 +48,6 @@ public class MainView {
                     "5. Удалить отель;\n" +
                     "Сделайте пожалуйста свой выбор: ";
 
-        //System.out.print(message);
         answerInt = InputService.inputIntInRange(scanner, message, 5);
         switch (answerInt) {
             case 1: {
@@ -74,6 +76,5 @@ public class MainView {
             }
         }
         }while (answerInt != 4);
-
     }
 }

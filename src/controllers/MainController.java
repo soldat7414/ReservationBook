@@ -1,10 +1,13 @@
 package controllers;
 
-import data.Hotel;
-import models.Reservation;
 import views.MainView;
 
 import java.util.Scanner;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class MainController {
 

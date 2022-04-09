@@ -5,10 +5,15 @@ import models.FromTo;
 import models.HotelRoom;
 import models.Reservation;
 import tools.Format;
-
 import java.util.*;
 
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
+
 public class ReservationService {
+
     private static String title = Hotel.getTitle();
 
     public static List<FromTo> availablePeriods(int number) {
@@ -50,18 +55,15 @@ public class ReservationService {
             }
         }
         return available;
-
     }
 
     public static void save(Reservation reservation) {
         int room = reservation.getRoom().getNumber();
-//        ReservationBook.getReservationBook().get(room).add(reservation);
         Hotel.getHotel().get(room).getReserved().add(reservation);
     }
 
     public static void delete(Reservation reservation) {
         int room = reservation.getRoom().getNumber();
-//        ReservationBook.getReservationBook().get(room).remove(reservation);
         Hotel.getHotel().get(room).getReserved().remove(reservation);
     }
 }

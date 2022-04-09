@@ -1,10 +1,13 @@
 package models;
 
-import data.Hotel;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class HotelRoom implements Serializable {
 

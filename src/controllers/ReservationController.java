@@ -4,6 +4,11 @@ import views.ReservationView;
 
 import java.util.Scanner;
 
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
+
 public class ReservationController {
 
     public static void addReservation(Scanner scanner){

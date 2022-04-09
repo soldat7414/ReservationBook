@@ -5,16 +5,18 @@ import exceptions.*;
 import models.FromTo;
 import models.Reservation;
 import tools.Format;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.concurrent.ForkJoinPool;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class InputService {
-    private static List<FromTo> reserved;
 
     //input validation
     private static Scanner isEmpty (Scanner scanner) throws EmptyInputException {
@@ -54,7 +56,6 @@ public class InputService {
             if(ft.getFrom().getTime() <= d && ft.getTo().getTime() >= d) throw new ReservedPeriodException(
                     "Дата попадает в зарезервированный период: ", new FromTo(ft.getFrom(), ft.getTo()));
         }
-
         for (int i = 0; i < reserved.size(); i++){
             if(d < reserved.get(i).getFrom().getTime()) return new FromTo(date, reserved.get(i).getFrom());
         }
@@ -66,9 +67,6 @@ public class InputService {
        if(range.getTime() < ft.getTo().getTime()) throw new ReservedPeriodException("Дата выезда должна быть до ", new FromTo(ft.getFrom(),range));
        return ft;
     }
-
-
-
 
 
     //input data
@@ -198,9 +196,4 @@ public class InputService {
         } while (ft == null);
         return ft;
     }
-
-
-
-
-
 }
