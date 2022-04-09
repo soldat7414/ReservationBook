@@ -82,6 +82,10 @@ public class ReservationView {
 
     }
 
+    public static void getInfo () {
+        System.out.println(HotelService.getInfo());
+    }
+
 
 
 

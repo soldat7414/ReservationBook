@@ -1,5 +1,6 @@
 package tools;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,5 +29,10 @@ public class Format {
             System.out.println(pe);
         }
         return d;
+    }
+
+    public static String roundValue(double value){
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(value);
     }
 }
