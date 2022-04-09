@@ -3,6 +3,12 @@ package models;
 import tools.Format;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class FromTo {
     Date from;
@@ -30,6 +36,10 @@ public class FromTo {
 
     @Override
     public String toString() {
-        return "c" + Format.parseDate(from) + " до " + Format.parseDate(to) +"\n";
+        return "c " + Format.parseDate(from) + " до " + Format.parseDate(to) +"\n";
+    }
+    public long duration() {
+        long diff = to.getTime() - from.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 }

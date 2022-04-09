@@ -5,16 +5,18 @@ import exceptions.*;
 import models.FromTo;
 import models.Reservation;
 import tools.Format;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.concurrent.ForkJoinPool;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class InputService {
-    private static List<FromTo> reserved;
 
     //input validation
     private static Scanner isEmpty (Scanner scanner) throws EmptyInputException {
@@ -49,12 +51,11 @@ public class InputService {
 
     private static FromTo fromInAvailablePeriod (Date date, List<Reservation> reserved) throws ReservedPeriodException, PastDataException {
         long d = date.getTime();
-        if(d < new Date().getTime()) throw new PastDataException("Мы не можем забронировать номер задним числом!");
+        if(new Date().after(date)) throw new PastDataException("Мы не можем забронировать номер задним числом!");
         for (Reservation ft : reserved){
             if(ft.getFrom().getTime() <= d && ft.getTo().getTime() >= d) throw new ReservedPeriodException(
                     "Дата попадает в зарезервированный период: ", new FromTo(ft.getFrom(), ft.getTo()));
         }
-
         for (int i = 0; i < reserved.size(); i++){
             if(d < reserved.get(i).getFrom().getTime()) return new FromTo(date, reserved.get(i).getFrom());
         }
@@ -68,14 +69,11 @@ public class InputService {
     }
 
 
-
-
-
     //input data
     public static String txt (Scanner scanner, String message) {
         String txt = null;
+        System.out.print(message);
         do{
-            System.out.print(message);
             try{
                 if(scanner.hasNextLine()){
                 txt = scanner.nextLine();
@@ -198,9 +196,4 @@ public class InputService {
         } while (ft == null);
         return ft;
     }
-
-
-
-
-
 }

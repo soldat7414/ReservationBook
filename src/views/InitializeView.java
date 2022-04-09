@@ -5,6 +5,11 @@ import services.InputService;
 
 import java.util.Scanner;
 
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
+
 public class InitializeView {
 
     private static String message;

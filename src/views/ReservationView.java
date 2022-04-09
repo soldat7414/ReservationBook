@@ -7,10 +7,14 @@ import services.HotelService;
 import services.InputService;
 import services.ReservationService;
 import tools.Format;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 public class ReservationView {
 
@@ -47,7 +51,7 @@ public class ReservationView {
         message = "Проверьте, пожалуйста, данные резерва:";
         System.out.println(message);
         System.out.println(reservation.toString());
-        System.out.println("Стоимость прибывания составит: " + reservation.getRoom().getPrice()*reservation.duration());
+        System.out.println("Стоимость прибывания составит: " + Format.roundValue(reservation.getRoom().getPrice()*reservation.duration()));
         //System.out.print(message);
         message = "Чтоб сохранить запись введите s: ";
         //System.out.print(message);
@@ -80,6 +84,10 @@ public class ReservationView {
         String s = InputService.txt(scanner, message);
         if(s.equals("d")) ReservationService.delete(reservations.get(delNum-1));
 
+    }
+
+    public static void getInfo () {
+        System.out.println(HotelService.getInfo());
     }
 
 

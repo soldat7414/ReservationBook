@@ -3,8 +3,12 @@ package data;
 import models.HotelRoom;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * @author Soldatenko Ihor
+ * @version 1.0.0
+ */
 
 
 public class Hotel implements Serializable {
